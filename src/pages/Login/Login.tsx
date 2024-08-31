@@ -56,7 +56,11 @@ const Login = () => {
 
   return (
     <>
-      <Box className="p-5 isolate aspect-video w-96 rounded-xl bg-white/20 shadow-lg ring-1 ring-black/5">
+      {/* Circles */}
+      <div className="absolute w-72 h-72 bg-gradient-to-br from-pink-500 to-purple-800 rounded-full top-0 right-[300px] z-[-50]"></div>
+      <div className="absolute w-48 h-48 bg-gradient-to-br from-pink-400 to-red-600 rounded-full bottom-[-0px] left-[400px] z-[-50]"></div>
+
+      <Box className="p-5 w-96 h-[500px] bg-white/20 rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[5px] border border-white/30">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box className="grid max-sm:grid-cols-1 max-md:grid-cols-1 md:grid-cols-1 items-center justify-center w-full gap-2">
             <Controller
