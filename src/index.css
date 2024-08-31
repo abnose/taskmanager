@@ -70,3 +70,23 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@font-face {
+  font-family: "Vazir-Medium";
+  src: url(../src/assets/fonts/Vazir-Medium.ttf);
+}
+
+@font-face {
+  font-family: "Vazir-Light";
+  src: url(../src/assets/fonts/Vazir-Light.ttf);
+}
+
+@font-face {
+  font-family: "Vazir-ExtraLight";
+  src: url(../src/assets/fonts/Vazir-Thin.ttf);
+}
+
+@font-face {
+  font-family: "Vazir-Bold";
+  src: url(../src/assets/fonts/Vazir-Bold.ttf);
+}
