@@ -31,6 +31,9 @@ export const muiTheme = createTheme({
   typography: {
     fontFamily: fonts.join(","),
     fontSize: 12,
+    allVariants: {
+      color: "white",
+    },
   },
 
   palette: {
