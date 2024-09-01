@@ -4,40 +4,26 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  FormHelperText,
+  TextField,
 } from "@mui/material";
+import { Controller } from "react-hook-form";
 
-const CustomTextInput = ({
-  name,
-  label,
-  handleMouseDownPassword,
-  handleMouseUpPassword,
-  handleClickShowPassword,
-  isIconVisible,
-  Icon1,
-  Icon2,
-}) => {
+const CustomTextInput = ({ control, name, errors, label }) => {
   return (
-    <FormControl variant="outlined">
-      <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
-      <OutlinedInput
-        type={isIconVisible ? "text" : "password"}
-        startAdornment={
-          <InputAdornment position="end" sx={{ marginRight: "10px" }}>
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              onMouseUp={handleMouseUpPassword}
-              edge="start"
-              sx={{}}
-            >
-              {isIconVisible ? <Icon1 /> : <Icon2 />}
-            </IconButton>
-          </InputAdornment>
-        }
-        label={name}
-      />
-    </FormControl>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <TextField
+          label={label}
+          variant="outlined"
+          onChange={(e) => field.onChange(e.target.value)}
+          error={!!errors[name]}
+          helperText={errors[name]?.message}
+        />
+      )}
+    />
   );
 };
 
