@@ -3,6 +3,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import { frontendBaseUrl } from "./routes.config";
+import { WidthFull } from "@mui/icons-material";
 
 export const muiRtlCache = createCache({
   key: "muirtl",
@@ -35,6 +36,9 @@ export const muiTheme = createTheme({
       color: "white",
     },
   },
+
+
+
 
   palette: {
     primary: {
@@ -83,6 +87,69 @@ export const muiTheme = createTheme({
 
   direction: "rtl",
   components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          minHeight: 500,
+          '& .MuiDataGrid-row': {
+            // color: '#232D3F'
+          },
+          '& .MuiDataGrid-columnHeaderTitle': {
+            fontSize: "15px"
+          },
+          '& .MuiDataGrid-selectedRowCount': {
+            color: 'white'
+          },
+          '& .MuiCheckbox-root': {
+            color: '#9504b5'
+          }
+        },
+        columnHeader: {
+          backgroundColor: 'black',
+          '& .MuiSvgIcon-root': {
+            color: 'white'
+          }
+        },
+        columnHeaderTitle: {
+          color: 'white',
+        },
+        columnHeaderSortIcon: {
+          color: 'white',
+        },
+        footerContainer: {
+          backgroundColor: 'black',
+        },
+      },
+    },
+    MuiTablePagination: {
+      styleOverrides: {
+        toolbar: {
+          color: "white",
+          '& .MuiButtonBase-root': {
+            color: "white"
+          }
+        },
+        selectIcon: {
+          color: "white"
+        },
+        root: {
+          '& .MuiSvgIcon-colorPrimary': {
+            color: 'white'
+          },
+
+        }
+      }
+    },
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          button: {
+            color: 'red',
+            background: 'red',
+          },
+        },
+      },
+    }
     // MuiButton: {
     //   styleOverrides: {
     //     root: {

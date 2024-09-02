@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App.tsx";
 import "./index.css";
-import { ThemeProvider } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { muiRtlCache, muiTheme } from "./config/theme.config.ts";
 import { CacheProvider } from "@emotion/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
