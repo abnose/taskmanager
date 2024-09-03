@@ -37,9 +37,6 @@ export const muiTheme = createTheme({
     },
   },
 
-
-
-
   palette: {
     primary: {
       main: "#1976d2",
@@ -91,65 +88,65 @@ export const muiTheme = createTheme({
       styleOverrides: {
         root: {
           minHeight: 500,
-          '& .MuiDataGrid-row': {
+          "& .MuiDataGrid-row": {
             // color: '#232D3F'
           },
-          '& .MuiDataGrid-columnHeaderTitle': {
-            fontSize: "15px"
+          "& .MuiDataGrid-columnHeaderTitle": {
+            fontSize: "15px",
           },
-          '& .MuiDataGrid-selectedRowCount': {
-            color: 'white'
+          "& .MuiDataGrid-selectedRowCount": {
+            color: "white",
           },
-          '& .MuiCheckbox-root': {
-            color: '#9504b5'
-          }
+          "& .MuiCheckbox-root": {
+            color: "#9504b5",
+          },
         },
         columnHeader: {
-          backgroundColor: 'black',
-          '& .MuiSvgIcon-root': {
-            color: 'white'
-          }
+          backgroundColor: "black",
+          "& .MuiSvgIcon-root": {
+            color: "white",
+          },
         },
         columnHeaderTitle: {
-          color: 'white',
+          color: "white",
         },
         columnHeaderSortIcon: {
-          color: 'white',
+          color: "white",
         },
         footerContainer: {
-          backgroundColor: 'black',
+          backgroundColor: "black",
         },
       },
     },
-    MuiTablePagination: {
-      styleOverrides: {
-        toolbar: {
-          color: "white",
-          '& .MuiButtonBase-root': {
-            color: "white"
-          }
-        },
-        selectIcon: {
-          color: "white"
-        },
-        root: {
-          '& .MuiSvgIcon-colorPrimary': {
-            color: 'white'
-          },
+    // MuiTablePagination: {
+    //   styleOverrides: {
+    //     toolbar: {
+    //       color: "white",
+    //       '& .MuiButtonBase-root': {
+    //         color: "white"
+    //       }
+    //     },
+    //     selectIcon: {
+    //       color: "white"
+    //     },
+    //     root: {
+    //       '& .MuiSvgIcon-colorPrimary': {
+    //         color: 'white'
+    //       },
 
-        }
-      }
-    },
-    MuiPagination: {
-      styleOverrides: {
-        root: {
-          button: {
-            color: 'red',
-            background: 'red',
-          },
-        },
-      },
-    }
+    //     }
+    //   }
+    // },
+    // MuiPagination: {
+    //   styleOverrides: {
+    //     root: {
+    //       button: {
+    //         color: "red",
+    //         background: "red",
+    //       },
+    //     },
+    //   },
+    // },
     // MuiButton: {
     //   styleOverrides: {
     //     root: {
