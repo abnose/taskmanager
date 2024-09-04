@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import {
   DataGrid,
@@ -11,157 +11,46 @@ import { useDemoData } from "@mui/x-data-grid-generator";
 import MuiPagination from "@mui/material/Pagination";
 import { TablePaginationProps } from "@mui/material/TablePagination";
 import CustomTextInput from "./CustomTextInput";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+
 import Pagination from "@mui/material/Pagination";
 import { Typography } from "@mui/material";
 
-export default function BaseTable() {
-  const defaultValues = {
-    password: "",
-    userName: "",
+let size = 10;
+let items = [];
+
+export default function BaseTable({
+  header,
+  col,
+  pagination = false,
+  paginationType = "local",
+  onPageChange,
+  totalItem,
+}) {
+  const [colsItem, setColsItem] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
+
+  let totalPages = Math.ceil(totalItem / size);
+
+  const handlePageChange = (event, page) => {
+    setPageNumber(page);
+    if (paginationType == "server") {
+      onPageChange(page);
+    } else {
+      setColsItem(items[page - 1]);
+    }
   };
 
-  const loginSchema = yup.object({
-    password: yup.string().required("لطفاً کلمه عبور را وارد کنید."),
-    userName: yup.string().required("لطفاً نام کاربری را وارد کنید."),
-  });
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(loginSchema),
-    defaultValues,
-  });
-
-  const data = [
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 4,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsa",
-      status: "sdfa",
-      amount: 5,
-    },
-    {
-      order: 1,
-      desc: "dont have",
-      deadline: "dfsfffffffffffa",
-      status: "sdfa",
-      amount: 4,
-    },
-  ];
-
-  const header = [
-    {
-      title: "ترتیب",
-      key: "order",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
-    },
-    {
-      title: "desc",
-      key: "desc",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
-    },
-    {
-      title: "deadline",
-      key: "deadline",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
-    },
-    {
-      title: "status",
-      key: "status",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
-    },
-    {
-      title: "amount",
-      key: "amount",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
-    },
-    {
-      title: "custom",
-      key: "render",
-      render: <p>fdsasss</p>,
-    },
-  ];
+  useEffect(() => {
+    if (paginationType == "local") {
+      col.forEach((element) => {
+        items.push(col.splice(0, size));
+      });
+      console.log(items, col);
+      setColsItem(items[0]);
+    } else {
+      setColsItem(col);
+    }
+  }, []);
 
   return (
     <Box dir="rtl" className="mt-10 overflow-x-auto shadow-md sm:rounded-lg">
@@ -173,13 +62,10 @@ export default function BaseTable() {
           <tr>
             <th className="px-6 py-3 text-center">ردیف</th>
             {header.map((item): any => (
-              <th scope="col" className="px-6 py-3 text-center">
+              <th key={item.key} scope="col" className="px-6 py-3 text-center">
                 {item?.title}
               </th>
             ))}
-            {/* <th>Deadline</th> */}
-            {/* <th>Status</th> */}
-            {/* <th>Amount</th> */}
           </tr>
         </thead>
         <thead className="text-xs h-[50px] text-gray-700 ">
@@ -187,13 +73,13 @@ export default function BaseTable() {
             {header.map((item, index): any => {
               if (item.filter && index !== 0) {
                 return (
-                  <th className="py-3">
+                  <th key={item.key} className="py-3">
                     <div className="">{item?.filter}</div>
                   </th>
                 );
               } else {
                 return (
-                  <th>
+                  <th key={item.key}>
                     <Box></Box>
                   </th>
                 );
@@ -202,15 +88,19 @@ export default function BaseTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, i) => (
-            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+          {colsItem?.map((item, i) => (
+            <tr
+              key={i}
+              className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+            >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
-                {i}
+                {+((pageNumber - 1) * 10) + i + 1}
               </td>
               {header.map((el) => {
                 if (!el.render) {
                   return (
                     <td
+                      key={el.key}
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
                     >
@@ -219,7 +109,10 @@ export default function BaseTable() {
                   );
                 } else {
                   return (
-                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td
+                      key={el.key}
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
                       {el?.render}
                     </td>
                   );
@@ -228,18 +121,18 @@ export default function BaseTable() {
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          {/* <tr>
-            {header.map((item): any => (
-              <th>{item?.title}</th>
-            ))}
-          </tr> */}
-        </tfoot>
+        <tfoot></tfoot>
       </table>
-      <div className="flex justify-center items-center dark:bg-gray-700 w-full text-gray-700 p-2">
-        <Pagination count={10} />
-        <Box className=" text-white">تعداد کل : 5</Box>
-      </div>
+      {pagination && (
+        <div className="flex justify-center items-center dark:bg-gray-700 w-full text-gray-700 p-2">
+          <Pagination
+            onChange={handlePageChange}
+            page={pageNumber}
+            count={totalPages}
+          />
+          <Box className=" text-white">تعداد کل : {totalItem}</Box>
+        </div>
+      )}
     </Box>
   );
 }
