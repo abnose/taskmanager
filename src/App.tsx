@@ -2,18 +2,19 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import Login from "./pages/Login/Login";
 import BaseTable from "./components/BaseTable";
 import CustomTextInput from "./components/CustomTextInput";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { IHeader } from "./components/BaseTable";
 function App() {
+  const [filterdItems, setFilterdItems] = useState([]);
   const defaultValues = {
-    password: "",
-    userName: "",
+    password: "sss",
+    userName: "s",
   };
 
   const loginSchema = yup.object({
@@ -23,6 +24,10 @@ function App() {
   const {
     handleSubmit,
     control,
+    reset,
+    getValues,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(loginSchema),
@@ -228,7 +233,7 @@ function App() {
     },
   ];
 
-  const header = [
+  const header: IHeader[] = [
     {
       title: "ترتیب",
       key: "order",
@@ -258,8 +263,8 @@ function App() {
       key: "deadline",
       filter: (
         <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
+          name="password"
+          label="fdsafs"
           control={control}
           errors={errors}
         />
@@ -268,26 +273,10 @@ function App() {
     {
       title: "status",
       key: "status",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
     },
     {
       title: "amount",
       key: "amount",
-      filter: (
-        <CustomTextInput
-          name="userName"
-          label="ایمیل یا نام کاربری"
-          control={control}
-          errors={errors}
-        />
-      ),
     },
     {
       title: "custom",
@@ -300,17 +289,48 @@ function App() {
     console.log(page, "parent");
   };
 
+  const handleClearFilter = () => {
+    console.log("clear");
+    setTimeout(() => {
+      reset();
+    }, 1000);
+  };
+
+  const handleSearch = () => {
+    console.log(getValues("userName"));
+    setFilterdItems({
+      usename: getValues("userName"),
+    });
+  };
+
+  const ssss = () => {
+    console.log(reset);
+    Object.entries(defaultValues).forEach((element) => {
+      console.log(element[0], element[1]);
+      console.log(getValues("userName"), "[[[[[[[[[[[[[");
+      setValue(element[0], element[1]);
+    });
+    reset();
+  };
+
   return (
     <>
       {/* <Login /> */}
-      <BaseTable
-        header={header}
-        col={data}
-        pagination={true}
-        paginationType="local"
-        totalItem={data?.length}
-        onPageChange={handlePageChange}
-      />
+      <Box>
+        <BaseTable
+          header={header}
+          col={data}
+          pagination={true}
+          paginationType="local"
+          filterType="local"
+          totalItem={data?.length}
+          onPageChange={handlePageChange}
+          clearFilter={handleClearFilter}
+          onSearch={handleSearch}
+          filterdItem={filterdItems}
+        />
+      </Box>
+      <Button onClick={ssss}>fdsafdsa</Button>
     </>
   );
 }

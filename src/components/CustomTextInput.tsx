@@ -1,12 +1,4 @@
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
+import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 const CustomTextInput = ({ control, name, errors, label }) => {
@@ -14,11 +6,12 @@ const CustomTextInput = ({ control, name, errors, label }) => {
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ field: { onChange, value } }) => (
         <TextField
           label={label}
           variant="outlined"
-          onChange={(e) => field.onChange(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           error={!!errors[name]}
           helperText={errors[name]?.message}
         />
